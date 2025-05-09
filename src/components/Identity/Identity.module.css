@@ -1,7 +1,6 @@
 .container {
   position: relative;
   width: 120px;
-  height: 158px;
   overflow: hidden;
 
   display: inline-block;

@@ -27,7 +27,7 @@ export default function StickyBar() {
 
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" className={styles.homeLink}>
-         <img src="/images/logo.png" alt="Logo" className={styles.logo} /> 
+         <img src="/images/logo.webp" alt="Logo" className={styles.logo} /> 
         </a>
 
           <h3>

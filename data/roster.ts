@@ -36,9 +36,9 @@ export interface Sinner {
 
 // rif: https://limbuscompany.wiki.gg/wiki/List_of_Identities
 export const rarityImages = {
-    "0": "/images/0.png",
-    "00": "/images/00.png",
-    "000": "/images/000.png",
+    "0": "/images/0.webp",
+    "00": "/images/00.webp",
+    "000": "/images/000.webp",
 }
 
 export const getSinnerIdentity = (sinner_id: number, identity_id: number) => {
