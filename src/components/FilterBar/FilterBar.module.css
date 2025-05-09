@@ -1,0 +1,234 @@
+.container {
+  padding: 0 16px;
+  margin: 0 auto;
+  color: var(--color-text);
+}
+  
+  .filterBar {
+    width: 100%;
+    background-color: var(--color-surface);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Top row with title, search, and clear button */
+  .topRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffd700;
+    white-space: nowrap;
+    margin: 0;
+  }
+  
+  .searchContainer {
+    position: relative;
+    flex-grow: 1;
+  }
+  
+  .searchIcon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 0.75rem;
+    pointer-events: none;
+  }
+  
+  .icon {
+    height: 1rem;
+    width: 1rem;
+    color: #b0b0b8;
+  }
+  
+  .searchInput {
+    padding-left: 2.5rem;
+    background-color: #101014;
+    border-color: rgba(176, 176, 184, 0.3);
+    color: #f8f8f2;
+    width: 100%;
+    height: 2.25rem;
+  }
+  
+  .searchInput:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+  }
+  
+  /* Clear button */
+  .clearButton {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: rgba(179, 0, 27, 0.2);
+    border: 1px solid var(--color-primary);
+    color: var(--color-text);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  
+  .clearButton:hover {
+    background-color: rgba(179, 0, 27, 0.4);
+  }
+  
+  .clearButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(179, 0, 27, 0.4);
+  }
+  
+  .clearIcon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  
+  /* Active filters row - always visible */
+  .activeFiltersRow {
+    margin: 0.75rem 0 0.5rem;
+  }
+  
+  .filterTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .filterTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  
+  .filterTag:hover {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+  
+  .filterTag:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
+  }
+  
+  .primaryTag {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+  }
+  
+  .accentTag {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+  }
+  
+  .removeIcon {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  
+  /* Divider with toggle button */
+  .dividerContainer {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+  }
+  
+  .divider {
+    flex-grow: 1;
+    height: 1px;
+    background-color: rgba(176, 176, 184, 0.3);
+  }
+  
+  .toggleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-surface);
+    border: 1px solid rgba(176, 176, 184, 0.3);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  
+  .toggleButton:hover {
+    background-color: #101014;
+    border-color: #ffd700;
+  }
+  
+  .toggleButton:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+  }
+  
+  .toggleIcon {
+    width: 14px;
+    height: 14px;
+    color: var(--color-accent);
+  }
+  
+  .srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  /* Filter content section */
+  .filterContent {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  }
+  
+  .open {
+    max-height: 1000px; /* Arbitrary large value */
+    opacity: 1;
+    margin-top: 0.5rem;
+  }
+  
+  .closed {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+  
+  .filterGroups {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .filterGroups {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  

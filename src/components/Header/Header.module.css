@@ -1,0 +1,6 @@
+.header {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  padding: 16px;
+  border-bottom: 2px solid var(--color-primary);
+} 

@@ -1,0 +1,105 @@
+.shareButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-primary);
+  color: var(--color-accent);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.shareButton:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.shareButton:active {
+  transform: translateY(0);
+}
+
+.shareButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.shareIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.dropdownMenuContent {
+  min-width: 180px;
+  background-color: var(--color-surface);
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  z-index: 100;
+  border: 1px solid var(--color-accent);
+}
+
+.dropdownMenuItem {
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-text);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 35px;
+  padding: 0 10px;
+  position: relative;
+  user-select: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.dropdownMenuItem:hover {
+  background-color: var(--color-primary);
+}
+
+.itemIcon {
+  margin-right: 5px;
+  height: 16px;
+  width: 16px;
+}
+
+.dropdownMenuArrow {
+  fill: var(--color-surface);
+  stroke: var(--color-accent);
+  stroke-width: 1px;
+}
+
+.copySuccess {
+  position: absolute;
+  bottom: -40px;
+  right: 0;
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

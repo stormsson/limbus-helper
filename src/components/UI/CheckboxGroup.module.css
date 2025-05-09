@@ -1,0 +1,44 @@
+.filterGroup {
+  margin-bottom: 0.75rem;
+}
+
+.filterGroupTitle {
+  font-weight: 500;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.checkboxList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.checkboxList.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox {
+  border-color: #b0b0b8;
+}
+
+.checkbox[data-state="checked"] {
+  background-color: #b3001b;
+  border-color: #b3001b;
+}
+
+.checkboxLabel {
+  color: #f8f8f2;
+  cursor: pointer;
+  text-transform: capitalize;
+  font-size: 0.875rem;
+}

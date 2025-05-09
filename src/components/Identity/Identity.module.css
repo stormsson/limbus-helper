@@ -1,0 +1,76 @@
+.container {
+  position: relative;
+  width: 120px;
+  height: 158px;
+  overflow: hidden;
+
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  height: 100px;
+}
+
+.subtitle {
+  font-size: 0.75em;
+  padding:4px;
+  color: var(--color-accent);
+  max-height: 35px;
+}
+
+.img {
+  display: block;
+  border-radius: 8px;
+  width: 120px;
+  height: px;
+  filter: brightness(0.7); /* Make unselected images darker */
+  transition: filter 1s ease;
+
+} 
+
+.rarity {
+  position: absolute;
+  bottom: 4;
+  right: 6;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+}
+
+.rarityImage {
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+/* Selected state styling */
+.selected {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px #FFD700, 0 0 16px rgba(255, 215, 0, 0.6);
+
+  border-radius: 8px;
+}
+
+
+
+.selected .img,.viewingMode img {
+  filter: brightness(1); /* Reset brightness for selected images */
+
+}
+
+.selectedIndicator {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #00b4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

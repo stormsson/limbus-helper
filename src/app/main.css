@@ -1,0 +1,34 @@
+:root {
+    --color-bg: #101014;
+    --color-surface: #18181c;
+    --color-primary: #b3001b;
+    --color-accent: #ffd700;
+    --color-text: #f8f8f2;
+    --color-muted: #b0b0b8;
+    --color-danger: #ff2d2d;
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  :global(a) {
+    text-decoration: none;
+    color: inherit;
+  }
+  .body {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  :global(h1), :global(h2), :global(h3) {
+    color: var(--color-accent);
+  }
+
+  :global(button) {
+    background: var(--color-primary);
+    color: var(--color-accent);
+    border: none;
+  }
