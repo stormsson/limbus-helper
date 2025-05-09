@@ -10,6 +10,7 @@ interface IdentitiesState {
   setIsViewingMode: (value: boolean) => void;
   setSelectedIdsFromUrl: (ids: string[]) => void;
   hydrateFromStorage: () => void;
+  setSelectionAndMode: (ids: string[], isViewing: boolean) => void;
 }
 
 // Define storage keys
@@ -95,6 +96,13 @@ export const useIdentitiesStore = create<IdentitiesState>()(
         set({ 
           selectedIds: ids,
           isViewingMode: true
+        });
+      },
+
+      setSelectionAndMode: (ids, isViewing) => {
+        set({
+          selectedIds: ids,
+          isViewingMode: isViewing
         });
       },
       
