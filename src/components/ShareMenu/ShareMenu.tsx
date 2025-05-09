@@ -10,14 +10,12 @@ import styles from './ShareMenu.module.css';
 export default function ShareMenu() {
   const { selectedIds, isViewingMode } = useIdentitiesStore();
   const [copySuccess, setCopySuccess] = React.useState<boolean>(false);
-  const [copyType, setCopyType] = React.useState<'link' | 'text' | null>(null);
   
   // Reset the copy success state after 2.5 seconds
   React.useEffect(() => {
     if (copySuccess) {
       const timer = setTimeout(() => {
         setCopySuccess(false);
-        setCopyType(null);
       }, 2500);
       return () => clearTimeout(timer);
     }
@@ -38,7 +36,6 @@ export default function ShareMenu() {
       navigator.clipboard.writeText(shareUrl)
         .then(() => {
           setCopySuccess(true);
-          setCopyType('link');
         })
         .catch(err => {
           console.error('Failed to copy URL:', err);
@@ -71,7 +68,6 @@ export default function ShareMenu() {
       navigator.clipboard.writeText(textToCopy)
         .then(() => {
           setCopySuccess(true);
-          setCopyType('text');
         })
         .catch(err => {
           console.error('Failed to copy text:', err);

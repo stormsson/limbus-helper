@@ -2,7 +2,7 @@
 import { FiEye } from 'react-icons/fi';
 import styles from './StickyBar.module.css';
 import { useIdentitiesStore } from '../../stores/IdentitiesStore';
-import Link from 'next/link';
+
 import FilterBar from '../FilterBar/Filterbar';
 import ShareMenu from '../ShareMenu/ShareMenu';
 
@@ -13,6 +13,9 @@ export default function StickyBar() {
     <div className={`${styles.stickyBar}`}>
       <div className={styles.container}>
         <div className={styles.leftSection}>
+
+
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" className={styles.homeLink}>
          <img src="/images/logo.png" alt="Logo" className={styles.logo} /> 
         </a>

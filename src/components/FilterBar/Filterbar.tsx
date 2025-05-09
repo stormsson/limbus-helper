@@ -1,8 +1,8 @@
 "use client"
 import { useFilterStore } from "@/stores/FilterStore"
 import { Input } from "@/components/UI/input"
-import { CheckboxGroup } from "@/components/UI/CheckboxGroup"
-import { Search, ChevronDown, ChevronUp, X } from "lucide-react"
+
+import { Search,  X } from "lucide-react"
 import styles from "./FilterBar.module.css"
 
 
@@ -11,25 +11,15 @@ export default function FilterBar() {
       nameFilter, 
       affinities, 
       traits,
-      isExpanded,
+
       setNameFilter, 
       setAffinities, 
       setTraits,
-      setIsExpanded,
+
       clearFilters 
     } = useFilterStore();
 
-    const handleAffinityChange = (value: string) => {
-        setAffinities(affinities.includes(value) 
-          ? affinities.filter(item => item !== value) 
-          : [...affinities, value])
-    }
-
-    const handleTraitChange = (value: string) => {
-        setTraits(traits.includes(value) 
-          ? traits.filter(item => item !== value) 
-          : [...traits, value])
-    }
+    
 
     const removeNameFilter = () => {
         setNameFilter("")
@@ -43,10 +33,7 @@ export default function FilterBar() {
         setTraits(traits.filter(item => item !== trait))
     }
 
-    const toggleFilters = () => {
-        setIsExpanded(!isExpanded)
-    }
-
+    
     // Check if any filters are active
     const hasActiveFilters = nameFilter !== "" || affinities.length > 0 || traits.length > 0
 

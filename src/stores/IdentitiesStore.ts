@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { useEffect } from 'react';
 
 interface IdentitiesState {
   selectedIds: string[];

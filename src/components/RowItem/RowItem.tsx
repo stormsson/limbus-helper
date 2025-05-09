@@ -28,7 +28,6 @@ export default function RowItem({ sinner }: RowItemProps) {
   const { nameFilter, hasFilters } = useFilterStore();
   const [open, setOpen] = useState(false);
   const [initialized, setInitialized] = useState(false);
-  const [sinnerSelectedIds, setSinnerSelectedIds] = useState<string[]>([]);
 
   // Monitor selectedIds changes
   useEffect(() => {
@@ -36,7 +35,6 @@ export default function RowItem({ sinner }: RowItemProps) {
     // Update the filtered IDs whenever selectedIds changes
     const filtered = selectedIds.filter(id => id.startsWith(`${sinner.ID}-`));
     console.log(`Filtered IDs for ${sinner.name}:`, filtered);
-    setSinnerSelectedIds(filtered);
   }, [selectedIds, sinner.ID, sinner.name]);
 
   const handleClick = () => {
