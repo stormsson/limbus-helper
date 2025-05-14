@@ -1,0 +1,15 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  padding: 24px;
+}
+
+.gridItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #181818;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+} 

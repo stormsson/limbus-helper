@@ -7,9 +7,10 @@ import { useIdentitiesStore } from '../../stores/IdentitiesStore';
 interface IdentityProps {
   identity_data: IdentityType;
   sinner: Sinner;
+  tall?: boolean;
 }
 
-export default function Identity({ identity_data, sinner }: IdentityProps) {
+export default function Identity({ identity_data, sinner, tall = false }: IdentityProps) {
   const { isSelected, toggleSelection, isViewingMode } = useIdentitiesStore();
   const selected = isSelected(sinner.ID, identity_data.ID);
 
@@ -24,7 +25,7 @@ export default function Identity({ identity_data, sinner }: IdentityProps) {
       data-sinner_id={sinner.ID}
       onClick={handleClick}
     >
-      <div className={styles.imageContainer}>
+      <div className={`${styles.imageContainer} ${tall ? styles.tall : ''}`}>
         <img
           src={identity_data.image}
           alt={identity_data.name}

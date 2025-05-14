@@ -45,6 +45,11 @@ export const getSinnerIdentity = (sinner_id: number, identity_id: number) => {
   return sinners.find(sinner => sinner.ID === sinner_id)?.identities?.find(identity => identity.ID === identity_id);
 }
 
+export const getSinnerByIdentityName = (identity_name: string): Sinner | undefined => {
+  return sinners.find(sinner => sinner.identities?.some(identity => identity.name === identity_name));
+}
+
+
 export const sinners: Sinner[] = [
     {
       "ID": 1,

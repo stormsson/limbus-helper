@@ -1,11 +1,14 @@
 .container {
   position: relative;
   width: 120px;
-  overflow: hidden;
-
+  overflow-y: hidden;
   display: inline-block;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+.container.viewingMode {
+  cursor: default;
 }
 
 .imageContainer {
@@ -14,11 +17,16 @@
   height: 100px;
 }
 
+.imageContainer.tall {
+  height: 150px;
+}
+
 .subtitle {
   font-size: 0.75em;
   padding:4px;
   color: var(--color-accent);
-  max-height: 35px;
+  height: 35px;
+  background-color: #333
 }
 
 .img {
