@@ -4,9 +4,11 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 interface IdentitiesState {
   selectedIds: string[];
   isViewingMode: boolean;
+  rowsUIState: Record<number, boolean>;
   getIdentityId: (sinner_id: number, identity_id: number) => string;
   isSelected: (sinner_id: number, identity_id: number) => boolean;
   toggleSelection: (sinner_id: number, identity_id: number) => void;
+  setRowUIVisibility: (sinner_id: number, open:boolean) => void;
   setIsViewingMode: (value: boolean) => void;
   setSelectedIdsFromUrl: (ids: string[]) => void;
   hydrateFromStorage: () => void;
@@ -62,6 +64,7 @@ export const useIdentitiesStore = create<IdentitiesState>()(
     (set, get) => ({
       selectedIds: [],
       isViewingMode: false,
+      rowsUIState: {},
       
       getIdentityId: (sinner_id, identity_id) => {
         return `${sinner_id}-${identity_id}`;
@@ -87,6 +90,14 @@ export const useIdentitiesStore = create<IdentitiesState>()(
             : [...state.selectedIds, id]
         }));
       },
+
+      setRowUIVisibility: (sinner_id, open) => {
+        console.log("setRowOpen", sinner_id)
+        set((state) => ({
+          rowsUIState: { ...state.rowsUIState, [sinner_id]: open }
+        }));
+      },
+
       
       setIsViewingMode: (value) => {
         set({ isViewingMode: value });
@@ -138,12 +149,16 @@ export const useIdentitiesStore = create<IdentitiesState>()(
             if (storedData) {
               try {
                 const parsed = JSON.parse(storedData);
-                if (parsed.state && parsed.state.selectedIds) {
-                  set({ 
-                    selectedIds: parsed.state.selectedIds,
-                    isViewingMode: false
-                  });
-                }
+
+                set(parsed.state)
+                
+                // why did i put this ?
+                // if (parsed.state && parsed.state.selectedIds) {
+                //   set({ 
+                //     selectedIds: parsed.state.selectedIds,
+                //     isViewingMode: false
+                //   });
+                // }
               } catch (e) {
                 console.error('Failed to parse stored data:', e);
               }
@@ -160,7 +175,7 @@ export const useIdentitiesStore = create<IdentitiesState>()(
       /* 
         we use partialize to persist only the selectedIds and isViewingMode, skipping the functions in the storage
       */
-      partialize: (state) => ({ selectedIds: state.selectedIds, isViewingMode: state.isViewingMode }),
+      partialize: (state) => ({ selectedIds: state.selectedIds, isViewingMode: state.isViewingMode, rowsUIState: state.rowsUIState }),
       // Initialize on client side
       skipHydration: true
     }
