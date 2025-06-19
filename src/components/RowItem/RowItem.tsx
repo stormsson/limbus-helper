@@ -30,11 +30,13 @@ export default function RowItem({ sinner }: RowItemProps) {
   const [initialized, setInitialized] = useState(false);
 
   // Monitor selectedIds changes
-  useEffect(() => {
-    // Update the filtered IDs whenever selectedIds changes
-    const filtered = selectedIds.filter(id => id.startsWith(`${sinner.ID}-`));
-    //console.log(`Filtered IDs for ${sinner.name}:`, filtered);
-  }, [selectedIds, sinner.ID, sinner.name]);
+  // after a bit this only contained the filtered variable, unused everywhere
+  
+  // useEffect(() => {
+  //   // Update the filtered IDs whenever selectedIds changes
+  //   const filtered = selectedIds.filter(id => id.startsWith(`${sinner.ID}-`));
+  //   //console.log(`Filtered IDs for ${sinner.name}:`, filtered);
+  // }, [selectedIds, sinner.ID, sinner.name]);
 
   const handleClick = () => {
     console.log("handleClick")
@@ -49,7 +51,8 @@ export default function RowItem({ sinner }: RowItemProps) {
   useEffect(() => {
     if (selectedIds.length > 0 && !initialized) {
       
-      const hasIdentitiesSelected = sinner.identities?.some((identity: IdentityType) => {
+      // unused, but may be useful later
+      //const hasIdentitiesSelected = sinner.identities?.some((identity: IdentityType) => {
         // Generate the ID in the same format as used in the hook
         const id = `${sinner.ID}-${identity.ID}`;
         const selected = selectedIds.includes(id);
