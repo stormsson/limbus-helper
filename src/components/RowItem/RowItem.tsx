@@ -30,8 +30,6 @@ export default function RowItem({ sinner }: RowItemProps) {
   const [initialized, setInitialized] = useState(false);
 
   // Monitor selectedIds changes
-  // after a bit this only contained the filtered variable, unused everywhere
-  
   // useEffect(() => {
   //   // Update the filtered IDs whenever selectedIds changes
   //   const filtered = selectedIds.filter(id => id.startsWith(`${sinner.ID}-`));
@@ -51,15 +49,15 @@ export default function RowItem({ sinner }: RowItemProps) {
   useEffect(() => {
     if (selectedIds.length > 0 && !initialized) {
       
-      // unused, but may be useful later
-      //const hasIdentitiesSelected = sinner.identities?.some((identity: IdentityType) => {
-        // Generate the ID in the same format as used in the hook
-        const id = `${sinner.ID}-${identity.ID}`;
-        const selected = selectedIds.includes(id);
-        return selected;
-      });
-      
       // commented, now the state is defined by zustand
+      // const hasIdentitiesSelected = sinner.identities?.some((identity: IdentityType) => {
+      //   // Generate the ID in the same format as used in the hook
+      //   const id = `${sinner.ID}-${identity.ID}`;
+      //   const selected = selectedIds.includes(id);
+      //   return selected;
+      // });
+      
+      
       // if (hasIdentitiesSelected) {
       //   //setOpen(true);
       //   setRowUIVisibility(sinner.ID, true);
