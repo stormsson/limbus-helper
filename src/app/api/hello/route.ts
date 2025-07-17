@@ -126,10 +126,7 @@ const _prepareDataStructure = async (extractedTable: string): Promise<TmpStructu
         // get all 'a' from the traits and get the text content of each
         const traitsLinks = traits?.querySelectorAll('a');
         const traitsText = Array.from(traitsLinks || []).map((link: Element) => link.textContent || '');
-        console.log("traits:", traitsText)
 
-
-        
         
         result[title] = {
           href: href || '#',
@@ -171,7 +168,8 @@ const _updateRoster = (dataStructure: TmpStructure) => {
         image: identity.image,
         rarity: identity.rarity,
         ID: 1 + sinner.identities?.length || 0,
-        wikiUrl: identity.href
+        wikiUrl: identity.href,
+        traits: identity.traits
       });
     }
   });

@@ -183,7 +183,14 @@ export const sinners: Sinner[] = [
         "rarity": "000",
         "ID": 12,
         "wikiUrl": "https://limbuscompany.wiki.gg/wiki/Liu_Assoc._South_Section_3_Yi_Sang"
-      }
+      },
+      {
+        "name": "N Corp. E.G.O::Fell Bullet Yi Sang",
+        "image": "https://limbuscompany.wiki.gg/images/thumb/8/85/N_Corp._E.G.O_Fell_Bullet_Yi_Sang.png/125px-N_Corp._E.G.O_Fell_Bullet_Yi_Sang.png?fb5c71",
+        "rarity": "000",
+        "ID": 13,
+        "wikiUrl": "https://limbuscompany.wiki.gg/wiki/N_Corp._E.G.O::Fell_Bullet_Yi_Sang"
+    },
     ]
   },
   {
@@ -363,7 +370,19 @@ export const sinners: Sinner[] = [
         "rarity": "000",
         "ID": 11,
         "wikiUrl": "https://limbuscompany.wiki.gg/wiki/Cinq_Assoc._East_Section_3_Don_Quixote"
-      }
+      },
+      {
+        "ID": 12,
+        "name": "Lobotomy E.G.O::In the Name of Love and Hate Don Quixote",
+        "image": "https://limbuscompany.wiki.gg/images/thumb/e/e3/Lobotomy_E.G.O_In_the_Name_of_Love_and_Hate_Don_Quixote.png/125px-Lobotomy_E.G.O_In_the_Name_of_Love_and_Hate_Don_Quixote.png?e84cfe",
+        "rarity": "000",
+        "wikiUrl": "https://limbuscompany.wiki.gg/wiki/Lobotomy_E.G.O::In_the_Name_of_Love_and_Hate_Don_Quixote",
+        "traits": [
+          "Lobotomy Corp. Headquarters",
+          "E.G.O Gear"
+        ]
+      },      
+      
     ]
   },
   {
@@ -867,7 +886,18 @@ export const sinners: Sinner[] = [
         "image": "https://limbuscompany.wiki.gg/images/thumb/9/9a/Family_Hierarch_Candidate_Ishmael_Uptied.png/125px-Family_Hierarch_Candidate_Ishmael_Uptied.png?b38b5f",
         "rarity": "000",
         "ID": 12
-      }
+      },
+      {
+        "ID": 13,
+        "name": "Lobotomy E.G.O::The Sword Sharpened with Tears Rodion",
+        "image": "https://limbuscompany.wiki.gg/images/thumb/2/2f/Lobotomy_E.G.O_The_Sword_Sharpened_with_Tears_Rodion.png/125px-Lobotomy_E.G.O_The_Sword_Sharpened_with_Tears_Rodion.png?7c306a",
+        "rarity": "000",
+        "wikiUrl": "https://limbuscompany.wiki.gg/wiki/Lobotomy_E.G.O::The_Sword_Sharpened_with_Tears_Rodion",
+        "traits": [
+          "Lobotomy Corp. Headquarters",
+          "E.G.O Gear"
+        ]
+      },
     ]
   },
   {
