@@ -10,9 +10,16 @@ interface RowItemPortraitsProps {
 export default function RowItemPortraits({ sinner_id }: RowItemPortraitsProps) {
   const { selectedIds } = useIdentitiesStore();
 
+  const sortedIds = selectedIds.sort((a, b) => {
+    const [sinnerIdA, identityIdA] = a.split('-').map(Number);
+    const [sinnerIdB, identityIdB] = b.split('-').map(Number);
+    if (sinnerIdA !== sinnerIdB) return sinnerIdA - sinnerIdB;
+    return identityIdA - identityIdB;
+  });
+
   return (
     <div className={styles.container}>
-      {selectedIds.map((id) => {
+      {sortedIds.map((id) => {
         const [sinner_id_str, identity_id] = id.split('-');
         if (parseInt(sinner_id_str) !== sinner_id) {
             return null;

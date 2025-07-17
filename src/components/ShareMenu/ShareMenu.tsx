@@ -8,7 +8,7 @@ import { getSinnerIdentity } from '../../../data/roster';
 import styles from './ShareMenu.module.css';
 
 export default function ShareMenu() {
-  const { selectedIds, isViewingMode } = useIdentitiesStore();
+  const { selectedIds, isViewingMode, generateShareUrl } = useIdentitiesStore();
   const [copySuccess, setCopySuccess] = React.useState<boolean>(false);
   
   // Reset the copy success state after 2.5 seconds
@@ -28,9 +28,8 @@ export default function ShareMenu() {
         return;
       }
       
-      // Create URL with selectedIds parameter
-      const baseUrl = window.location.origin + window.location.pathname;
-      const shareUrl = `${baseUrl}?selectedIds=${selectedIds.join(',')}`;
+      // Use the optimized URL generation from the store
+      const shareUrl = generateShareUrl();
       
       // Copy to clipboard
       navigator.clipboard.writeText(shareUrl)

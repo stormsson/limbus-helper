@@ -13,11 +13,57 @@ interface IdentitiesState {
   setSelectedIdsFromUrl: (ids: string[]) => void;
   hydrateFromStorage: () => void;
   setSelectionAndMode: (ids: string[], isViewing: boolean) => void;
+  generateShareUrl: () => string;
 }
 
 // Define storage keys
 const EDIT_STORAGE_KEY = 'identities-storage';
 const VIEW_STORAGE_KEY = 'identities-view';
+
+// URL format optimization helpers
+const parseOptimizedFormat = (urlIds: string): string[] => {
+  // Handle new format: "1:10,7,4|2:5,11"
+  if (urlIds.includes(':')) {
+    const result: string[] = [];
+    const sinners = urlIds.split('|');
+    
+    for (const sinner of sinners) {
+      const [sinnerId, identities] = sinner.split(':');
+      if (identities) {
+        const identityIds = identities.split(',');
+        for (const identityId of identityIds) {
+          result.push(`${sinnerId}-${identityId}`);
+        }
+      }
+    }
+    
+    return result;
+  }
+  
+  // Handle legacy format: "1-10,2-5,2-11"
+  return urlIds.split(',');
+};
+
+const generateOptimizedFormat = (selectedIds: string[]): string => {
+  // Group by sinner ID
+  const sinnerGroups: Record<string, string[]> = {};
+  
+  for (const id of selectedIds) {
+    const [sinnerId, identityId] = id.split('-');
+    if (!sinnerGroups[sinnerId]) {
+      sinnerGroups[sinnerId] = [];
+    }
+    sinnerGroups[sinnerId].push(identityId);
+  }
+  
+  // Generate optimized format
+  const parts: string[] = [];
+  for (const [sinnerId, identityIds] of Object.entries(sinnerGroups)) {
+    parts.push(`${sinnerId}:${identityIds.join(',')}`);
+  }
+  
+  return parts.join('|');
+};
 
 // Custom storage adapter to use different keys based on viewing mode
 const createCustomStorage = () => {
@@ -83,7 +129,7 @@ export const useIdentitiesStore = create<IdentitiesState>()(
         }
         
         const id = get().getIdentityId(sinner_id, identity_id);
-        
+
         set((state) => ({
           selectedIds: state.selectedIds.includes(id)
             ? state.selectedIds.filter(item => item !== id)
@@ -116,6 +162,17 @@ export const useIdentitiesStore = create<IdentitiesState>()(
           isViewingMode: isViewing
         });
       },
+
+      generateShareUrl: () => {
+        const { selectedIds } = get();
+        if (selectedIds.length === 0) return '';
+        
+        const baseUrl = typeof window !== 'undefined' 
+          ? window.location.origin + window.location.pathname
+          : '';
+        const optimizedIds = generateOptimizedFormat(selectedIds);
+        return `${baseUrl}?selectedIds=${optimizedIds}`;
+      },
       
       // New function to manually hydrate from the correct storage
       hydrateFromStorage: () => {
@@ -128,7 +185,7 @@ export const useIdentitiesStore = create<IdentitiesState>()(
           
           if (urlIds) {
             const stateData = {
-              selectedIds: urlIds.split(','),
+              selectedIds: parseOptimizedFormat(urlIds),
               isViewingMode: true
             };
             // Update in memory values
