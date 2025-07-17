@@ -522,10 +522,10 @@ export const sinners: Sinner[] = [
       },
       {
         "name": "The Thumb East Capo IIII Meursault",
-        "image": "/images/thumb/8/8a/The_Thumb_East_Capo_IIII_Meursault.png/125px-The_Thumb_East_Capo_IIII_Meursault.png?3d527e",
+        "image": "https://limbuscompany.wiki.gg/images/thumb/8/8a/The_Thumb_East_Capo_IIII_Meursault.png/125px-The_Thumb_East_Capo_IIII_Meursault.png?3d527e",
         "rarity": "000",
         "ID": 12,
-        "wikiUrl": "/wiki/The_Thumb_East_Capo_IIII_Meursault"
+        "wikiUrl": "https://limbuscompany.wiki.gg/wiki/The_Thumb_East_Capo_IIII_Meursault"
       }
     ]
   },
@@ -778,10 +778,10 @@ export const sinners: Sinner[] = [
       },
       {
         "name": "Family Hierarch Candidate Ishmael",
-        "image": "/images/thumb/7/7c/Family_Hierarch_Candidate_Ishmael.png/125px-Family_Hierarch_Candidate_Ishmael.png?861875",
+        "image": "https://limbuscompany.wiki.gg/images/thumb/7/7c/Family_Hierarch_Candidate_Ishmael.png/125px-Family_Hierarch_Candidate_Ishmael.png?861875",
         "rarity": "000",
         "ID": 13,
-        "wikiUrl": "/wiki/Family_Hierarch_Candidate_Ishmael"
+        "wikiUrl": "https://limbuscompany.wiki.gg/wiki/Family_Hierarch_Candidate_Ishmael"
       }
     ]
   },
@@ -949,10 +949,10 @@ export const sinners: Sinner[] = [
       },
       {
         "name": "The Thumb East Soldato II Sinclair",
-        "image": "/images/thumb/3/37/The_Thumb_East_Soldato_II_Sinclair.png/125px-The_Thumb_East_Soldato_II_Sinclair.png?9e0e82",
+        "image": "https://limbuscompany.wiki.gg/images/thumb/3/37/The_Thumb_East_Soldato_II_Sinclair.png/125px-The_Thumb_East_Soldato_II_Sinclair.png?9e0e82",
         "rarity": "000",
         "ID": 13,
-        "wikiUrl": "/wiki/The_Thumb_East_Soldato_II_Sinclair"
+        "wikiUrl": "https://limbuscompany.wiki.gg/wiki/The_Thumb_East_Soldato_II_Sinclair"
       }
     ]
   },

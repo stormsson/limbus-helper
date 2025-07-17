@@ -19,48 +19,53 @@ interface RowItemProps {
   sinner: Sinner;
 }
 
-function toggleOpen(setOpen: React.Dispatch<React.SetStateAction<boolean>>) {
-  setOpen(o => !o);
-}
+// function toggleOpen(setOpen: React.Dispatch<React.SetStateAction<boolean>>) {
+//   setOpen(o => !o);
+// }
 
 export default function RowItem({ sinner }: RowItemProps) {
-  const { selectedIds, isSelected, isViewingMode } = useIdentitiesStore();
+  const { selectedIds, isSelected, isViewingMode, rowsUIState: rowsState, setRowUIVisibility: setRowUIVisibility } = useIdentitiesStore();
   const { nameFilter, hasFilters } = useFilterStore();
-  const [open, setOpen] = useState(false);
+  //const [open, setOpen] = useState(false);
   const [initialized, setInitialized] = useState(false);
 
   // Monitor selectedIds changes
-  useEffect(() => {
-    console.log('selectedIds changed in RowItem:', selectedIds);
-    // Update the filtered IDs whenever selectedIds changes
-    const filtered = selectedIds.filter(id => id.startsWith(`${sinner.ID}-`));
-    console.log(`Filtered IDs for ${sinner.name}:`, filtered);
-  }, [selectedIds, sinner.ID, sinner.name]);
+  // useEffect(() => {
+  //   // Update the filtered IDs whenever selectedIds changes
+  //   const filtered = selectedIds.filter(id => id.startsWith(`${sinner.ID}-`));
+  //   //console.log(`Filtered IDs for ${sinner.name}:`, filtered);
+  // }, [selectedIds, sinner.ID, sinner.name]);
 
   const handleClick = () => {
+    console.log("handleClick")
     if (isViewingMode) {
       return;
     }
-    toggleOpen(setOpen);
+    //toggleOpen(setOpen);
+    setRowUIVisibility(sinner.ID, !rowsState[sinner.ID]);
+
   }
 
   useEffect(() => {
     if (selectedIds.length > 0 && !initialized) {
       
-      const hasIdentitiesSelected = sinner.identities?.some((identity: IdentityType) => {
-        // Generate the ID in the same format as used in the hook
-        const id = `${sinner.ID}-${identity.ID}`;
-        const selected = selectedIds.includes(id);
-        return selected;
-      });
+      // commented, now the state is defined by zustand
+      // const hasIdentitiesSelected = sinner.identities?.some((identity: IdentityType) => {
+      //   // Generate the ID in the same format as used in the hook
+      //   const id = `${sinner.ID}-${identity.ID}`;
+      //   const selected = selectedIds.includes(id);
+      //   return selected;
+      // });
       
-      if (hasIdentitiesSelected) {
-        setOpen(true);
-      }
+      
+      // if (hasIdentitiesSelected) {
+      //   //setOpen(true);
+      //   setRowUIVisibility(sinner.ID, true);
+      // }
       
       setInitialized(true);
     }
-  }, [selectedIds, sinner, initialized]);
+  }, [selectedIds, sinner, initialized, setRowUIVisibility]);
 
   // Apply name filter if it exists
   const filterIdentities = (identities: IdentityType[] | undefined) => {
@@ -87,9 +92,10 @@ export default function RowItem({ sinner }: RowItemProps) {
   // Auto-open when there are active filters and matches
   useEffect(() => {
     if (hasFilters && matchCount > 0) {
-      setOpen(true);
+      //setOpen(true);
+      setRowUIVisibility(sinner.ID, true);
     }
-  }, [hasFilters, matchCount]);
+  }, [hasFilters, matchCount, setRowUIVisibility, sinner]);
   
   // If no identities to show in viewing mode, don't render the row
   if (isViewingMode && (!visibleIdentities || visibleIdentities.length === 0)) {
@@ -104,7 +110,7 @@ export default function RowItem({ sinner }: RowItemProps) {
   return (
     <div id={`sinner-${sinner.ID}`} data-sinner_id={sinner.ID} className={`${styles.container} ${isViewingMode ? styles.viewingMode : ''}`} >
       <div onClick={handleClick} 
-        className={`${styles.title} ${open ? styles.open : ''} ${oswald.className}`}>
+        className={`${styles.title} ${rowsState[sinner.ID] ? styles.open : ''} ${oswald.className}`}>
         <FiChevronRight /> 
         {/* <img src={sinner.image} alt={sinner.name} className={styles.sinnerImage} /> */}
         <p>{sinner.name} </p>
@@ -114,7 +120,7 @@ export default function RowItem({ sinner }: RowItemProps) {
         )}
 
       </div>
-      {open && (
+      {rowsState[sinner.ID] && (
         <div className={styles.innerContainer} >          
           {visibleIdentities.map((identity:IdentityType) => (
             <Identity key={identity.name} identity_data={identity} sinner={sinner} />
