@@ -620,10 +620,20 @@ export const sinners: Sinner[] = [
         "ID": 11
       },
       {
+        "ID": 12,
         "name": "R Corp. 4th Pack Reindeer Hong Lu",
         "image": "https://limbuscompany.wiki.gg/images/thumb/3/3c/R_Corp._4th_Pack_Reindeer_Hong_Lu.png/125px-R_Corp._4th_Pack_Reindeer_Hong_Lu.png?8e2e3e",
         "rarity": "000",
-        "ID": 12
+        "wikiUrl": "https://limbuscompany.wiki.gg/wiki/R_Corp._4th_Pack_Reindeer_Hong_Lu",
+        "traits": ["R Corp."]          
+      },
+      {
+        "ID": 13,
+        "name":	"The Lord of Hongyuan Hong Lu",
+        "image":	"https://limbuscompany.wiki.gg/images/thumb/d/dc/The_Lord_of_Hongyuan_Hong_Lu_Uptied.png/125px-The_Lord_of_Hongyuan_Hong_Lu_Uptied.png?e83c86",
+        "rarity":	"000",
+        "wikiUrl":	"https://limbuscompany.wiki.gg/wiki/The_Lord_of_Hongyuan_Hong_Lu",
+        "traits":	["Jia Family", "H Corp."]          
       }
     ]
   },
@@ -1068,6 +1078,14 @@ export const sinners: Sinner[] = [
         "image": "https://limbuscompany.wiki.gg/images/thumb/1/15/Heishou_Pack_-_Mao_Branch_Outis.png/125px-Heishou_Pack_-_Mao_Branch_Outis.png?8ef011",
         "rarity": "000",
         "ID": 12
+      },
+      {
+        "ID": 13,
+        "name":	"T Corp. Class 3 VDCU Staff Outis",
+        "image":	"https://limbuscompany.wiki.gg/images/thumb/0/0b/T_Corp._Class_3_VDCU_Staff_Outis_Uptied.png/125px-T_Corp._Class_3_VDCU_Staff_Outis_Uptied.png?459149",
+        "rarity":	"000",
+        "wikiUrl":	"https://limbuscompany.wiki.gg/wiki/T_Corp._Class_3_VDCU_Staff_Outis",
+        "traits":	["T Corp."]          
       }
     ]
   },

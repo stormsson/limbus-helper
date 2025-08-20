@@ -10,73 +10,9 @@ type TmpStructure = Record<string, {
   traits: string[];
 }>;
 
-// Helper function to clean the extracted table
-const _cleanTable = (table: Element): string => {
 
-  // Remove all attributes except alt and title from all elements
-  const removeAttributesExcept = (element: Element) => {
-    const attributes = Array.from(element.attributes);
-    attributes.forEach(attr => {
-      if (!['alt', 'title', 'class', 'src', 'href'].includes(attr.name)) {
-        element.removeAttribute(attr.name);
-      }
-    });
-    
-    // Recursively process child elements
-    Array.from(element.children).forEach(child => {
-      removeAttributesExcept(child);
-    });
-  };
-  
-  removeAttributesExcept(table);
-  
-  // from each odd row extract the text of the span in it, and append it to an array
-  // const oddRows = table.querySelectorAll('tr:nth-child(odd)');
-  // const charactersNames = Array.from(oddRows).map((row) => {
-  //   const span = row.querySelector('span');
-  //   return span?.textContent;
-  // }).filter((text) => text !== null);
+const _prepareDataStructure = async (allIdentitiesRows: NodeList): Promise<TmpStructure> => {
 
-
-  // Remove even rows from the table
-  const rows = table.querySelectorAll('tr');
-
-  rows.forEach((row, index) => {
-    if (index % 2 === 0) { 
-      row.remove();
-    }
-  });
-  
-  // remove all divs with class Rar2 or Rar1
-  const divs = table.querySelectorAll('div.Rar2, div.Rar1');
-  divs.forEach(div => {
-    div.remove();
-  });
-
-
-  // iterate each div.IDRec, it will contain this structure: 'a','a','div'.
-  // we want to remove the div and the first 'a'
-  const idRecs = table.querySelectorAll('div.IDRec');
-
-  idRecs.forEach(idRec => {
-    const div = idRec.querySelector('div');
-    const a = idRec.querySelector('a');
-    div?.remove();
-    a?.remove();
-  });
-
-  // remove all empty div.IDRec
-  const emptyIdRecs = table.querySelectorAll('div.IDRec:empty');
-  emptyIdRecs.forEach(emptyIdRec => {
-    emptyIdRec.remove();
-  });
-
-
-  
-  return table.outerHTML;
-};
-
-const _prepareDataStructure = async (extractedTable: string): Promise<TmpStructure> => {
   const result: TmpStructure = {};
   const domain = "https://limbuscompany.wiki.gg"
 
@@ -84,32 +20,26 @@ const _prepareDataStructure = async (extractedTable: string): Promise<TmpStructu
   // Extract all character names from the roster
   const charactersNames = sinners.map((sinner: Sinner) => sinner.name);
 
-  // Create a DOM parser to work with the extracted table
-  const dom = new JSDOM(extractedTable);
-  const document = dom.window.document;
+  for (let sinnerIndex = 0; sinnerIndex < allIdentitiesRows.length; sinnerIndex++) {
+    const currentRow = allIdentitiesRows[sinnerIndex] as Element;
+    const rowIdentities = currentRow.querySelectorAll('div.IDRec');
 
-  // iterate each row in the table
-  const rows = document.querySelectorAll('tr');
-  for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-    const row = rows[rowIndex];
-    // FOR EACH row, iterate idrecs and the logic in it
-    const idRecs = row.querySelectorAll('div.IDRec');
-    
-    for (let idx = 0; idx < idRecs.length; idx++) {
-      const idRec = idRecs[idx];
-      const link = idRec.querySelector('a');
-      const img = idRec.querySelector('img');
-      
+    for (let identityIndex = 0; identityIndex < rowIdentities.length; identityIndex++) {
+      const idRec: Element = rowIdentities[identityIndex] as Element;
+      const link: Element | null = idRec.querySelector('a');
+      const img: Element | null = idRec.querySelector('img');
+
       if (link && img) {
         const title = link.getAttribute('title');
         const href = link.getAttribute('href');
         const image = img.getAttribute('src');
         
         if (!title) {
-          console.error("title not found, skipping", rowIndex, idx);
+          console.error("title not found, skipping", sinnerIndex, identityIndex);
           continue;
         }
-
+        
+  
         // fetch domain + href in a new document
         const sinnerPageResponse = await fetch(domain + href);
         const html = await sinnerPageResponse.text();
@@ -122,21 +52,40 @@ const _prepareDataStructure = async (extractedTable: string): Promise<TmpStructu
         const rarity = rarityMatch ? '0'.repeat(Number(rarityMatch[1])) : '??';
 
         // get the traits from the document @ div.ABMobile:nth-child(3) > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(2)
-        const traits = sinnerPageDocument.querySelector('div.ABMobile:nth-child(3) > table:nth-child(4) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(2)');
-        // get all 'a' from the traits and get the text content of each
-        const traitsLinks = traits?.querySelectorAll('a');
-        const traitsText = Array.from(traitsLinks || []).map((link: Element) => link.textContent || '');
-
+        const traits = sinnerPageDocument.querySelector('#General_Info-0 > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(2)');
+        // get all trait spans and extract text from either 'a' tags or 'b' tags
+        
+        const traitsSpans = traits?.querySelectorAll('span');
+        const traitsText: string[] = [];
+        
+        if (traitsSpans) {
+          Array.from(traitsSpans).forEach((span: Element) => {
+            const link = span.querySelector('a');
+            const bold = span.querySelector('b');
+            
+            if (link) {
+              // If span has an 'a' tag, get its text content
+              traitsText.push(link.textContent || '');
+            } else if (bold) {
+              // If span has a 'b' tag, get its text content
+              traitsText.push(bold.textContent || '');
+            }
+          });
+        }
+  
         
         result[title] = {
           href: href || '#',
           image: image || '#',
           rarity: rarity,
-          character: charactersNames[rowIndex] || 'Unknown',
+          character: charactersNames[sinnerIndex] || 'Unknown',
           traits: traitsText
         };
       }
     }
+
+    
+    
   }
 
   const _removePresentIdentities = (result: TmpStructure) => {
@@ -151,7 +100,9 @@ const _prepareDataStructure = async (extractedTable: string): Promise<TmpStructu
   _removePresentIdentities(result);
   
   return result;
-};
+
+
+}
 
 const _updateRoster = (dataStructure: TmpStructure) => {
 
@@ -196,22 +147,18 @@ export async function GET() {
   
   // 3) Extract only the specific table using CSS selector
   let extractedTable: string = '';
+  let allIdentitiesRows: NodeList;
+
   if (wikiHtml !== 'Error fetching wiki page') {
     try {
       // Create a DOM parser
       const dom = new JSDOM(wikiHtml);
       const document = dom.window.document;
 
+      allIdentitiesRows = document.querySelectorAll('div.nomobile');      
+
       
-      // Use CSS selector to find the specific table
-      // .mw-content-ltr > table:nth-child(6)
-      const table = document.querySelector('.mw-content-ltr > table:nth-child(6)');
-      
-      if (table && table.tagName === 'TABLE') {
-        extractedTable = _cleanTable(table);
-      } else {
-        extractedTable = 'Table not found with CSS selector .mw-content-ltr > table:nth-child(6)';
-      }
+
     } catch (error) {
       console.error('Error parsing HTML:', error);
       extractedTable = 'Error parsing HTML';
@@ -220,7 +167,9 @@ export async function GET() {
     extractedTable = 'Cannot extract table from error response';
   }
 
-  const dataStructure = await _prepareDataStructure( extractedTable);
+
+
+  const dataStructure = await _prepareDataStructure( allIdentitiesRows);
 
 
   const roster =_updateRoster(dataStructure);
